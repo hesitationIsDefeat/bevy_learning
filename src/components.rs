@@ -22,6 +22,9 @@ pub mod normal {
         pub fn new(x: f32, y: f32) -> Self {
             Self { value: Vec2::new(x, y) }
         }
+        pub fn empty() -> Self {
+            Self::new(0., 0.)
+        }
     }
 
     #[derive(Component, Debug)]

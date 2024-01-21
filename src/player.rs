@@ -5,6 +5,8 @@ use crate::components::marker::Player;
 use crate::components::normal::{MoveSpeed, Velocity};
 
 const PLAYER_SPEED: f32 = 5.;
+const PLAYER_X: f32 = 0.;
+const PLAYER_Y: f32 = 200.;
 
 pub struct PlayerPlugin;
 
@@ -19,11 +21,11 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(PlayerBundle {
         marker: Player,
         model: SpriteBundle {
-            transform: Transform::from_xyz(3., 4., 0.),
+            transform: Transform::from_xyz(PLAYER_X, PLAYER_Y, 0.),
             texture: asset_server.load("sprites/tiles/grass_dirt.png"),
             ..default()
         },
-        velocity: None,
+        velocity: Velocity::empty(),
         move_speed: MoveSpeed::new(PLAYER_SPEED),
     });
 }
@@ -32,6 +34,6 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
 pub struct PlayerBundle {
     pub marker: Player,
     pub model: SpriteBundle,
-    pub velocity: Option<Velocity>,
+    pub velocity: Velocity,
     pub move_speed: MoveSpeed,
 }
