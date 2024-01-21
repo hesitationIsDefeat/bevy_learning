@@ -1,5 +1,5 @@
 pub mod normal {
-    use bevy::prelude::Component;
+    use bevy::prelude::{Component, Vec2};
 
     #[derive(Component, Debug)]
     pub struct Position {
@@ -15,13 +15,23 @@ pub mod normal {
 
     #[derive(Component, Debug)]
     pub struct Velocity {
-        pub x: f32,
-        pub y: f32,
+        pub value: Vec2,
     }
 
     impl Velocity {
         pub fn new(x: f32, y: f32) -> Self {
-            Self { x, y }
+            Self { value: Vec2::new(x, y) }
+        }
+    }
+
+    #[derive(Component, Debug)]
+    pub struct MoveSpeed {
+        pub value: f32,
+    }
+
+    impl MoveSpeed {
+        pub fn new(value: f32) -> Self {
+            Self { value }
         }
     }
 }

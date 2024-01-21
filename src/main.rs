@@ -1,20 +1,30 @@
+use bevy::DefaultPlugins;
+use bevy::prelude::{App, Component, Plugin, Resource, Startup};
+
+use crate::camera::spawn_camera;
+use crate::debug::DebugPlugin;
+use crate::input::InputPlugin;
+use crate::movement::MovementPlugin;
+use crate::player::PlayerPlugin;
+
 mod constants;
 mod resources;
-mod systems;
 mod map;
-mod bundles;
 mod components;
-mod spawner;
-mod plugins;
-
-use bevy::DefaultPlugins;
-use bevy::prelude::{App, Commands, Component, Plugin, Query, Res, ResMut, Resource, Startup, Time, Timer, Update, With};
-use bevy::time::TimerMode;
-use crate::plugins::PositionPlugin;
+mod player;
+mod movement;
+mod debug;
+mod camera;
+mod input;
 
 fn main() {
     App::new()
-        .add_plugins((DefaultPlugins, PositionPlugin))
+        .add_systems(Startup, spawn_camera)
+        .add_plugins(DefaultPlugins)
+        .add_plugins(InputPlugin)
+        .add_plugins(PlayerPlugin)
+        .add_plugins(MovementPlugin)
+        .add_plugins(DebugPlugin)
         .run();
 }
 
