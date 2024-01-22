@@ -28,7 +28,14 @@ pub fn player_movement(time: Res<Time>, mut query: Query<(&mut Velocity, &mut Tr
             velocity.direction = Vec2::ZERO;
             target.value = transform.translation.xy();
         } else {
-            transform.translation += velocity.direction.extend(0.) * velocity.speed * time.delta_seconds();
+            transform.translation += velocity.direction.extend(0.) * velocity.speed * speed_isometric_multiplier(velocity.direction) * time.delta_seconds();
         }
     }
+}
+
+/// Since the movement in the y direction must be slower due to the isometric camera angle, it adjusts the speed
+/// so that the movement does fit the isometric perspective
+fn speed_isometric_multiplier(direction: Vec2) -> f32 {
+    let angle_radians = direction.angle_between(Vec2::X);
+    ((angle_radians * 2.).cos() + 3.) / 4.
 }
