@@ -22,6 +22,26 @@ pub mod normal {
         pub fn new(x: f32, y: f32) -> Self {
             Self { value: Vec2::new(x, y) }
         }
+        pub fn from_v2(v2: Vec2) -> Self {
+            Self::new(v2.x, v2.y)
+        }
+        pub fn empty() -> Self {
+            Self::new(0., 0.)
+        }
+    }
+
+    #[derive(Component, Debug)]
+    pub struct Target {
+        pub value: Vec2,
+    }
+
+    impl Target {
+        pub fn new(x: f32, y: f32) -> Self {
+            Self { value: Vec2::new(x, y) }
+        }
+        pub fn from_v2(v2: Vec2) -> Self {
+            Self::new(v2.x, v2.y)
+        }
         pub fn empty() -> Self {
             Self::new(0., 0.)
         }

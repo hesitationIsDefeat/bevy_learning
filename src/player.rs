@@ -2,10 +2,10 @@ use bevy::app::{App, Plugin, Startup};
 use bevy::prelude::{AssetServer, Bundle, Commands, default, Res, SpriteBundle, Transform};
 
 use crate::components::marker::Player;
-use crate::components::normal::{MoveSpeed, Velocity};
+use crate::components::normal::{MoveSpeed, Target, Velocity};
 
-const PLAYER_SPEED: f32 = 5.;
-const PLAYER_X: f32 = 0.;
+const PLAYER_SPEED: f32 = 100.;
+const PLAYER_X: f32 = 200.;
 const PLAYER_Y: f32 = 200.;
 
 pub struct PlayerPlugin;
@@ -27,6 +27,7 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
         },
         velocity: Velocity::empty(),
         move_speed: MoveSpeed::new(PLAYER_SPEED),
+        target: Target::new(PLAYER_X, PLAYER_Y),
     });
 }
 
@@ -36,4 +37,5 @@ pub struct PlayerBundle {
     pub model: SpriteBundle,
     pub velocity: Velocity,
     pub move_speed: MoveSpeed,
+    pub target: Target,
 }

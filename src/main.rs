@@ -7,7 +7,6 @@ use crate::input::InputPlugin;
 use crate::movement::MovementPlugin;
 use crate::player::PlayerPlugin;
 
-mod constants;
 mod resources;
 mod map;
 mod components;
