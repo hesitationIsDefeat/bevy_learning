@@ -4,7 +4,7 @@ use bevy::prelude::{AssetServer, Bundle, Commands, default, Res, SpriteBundle, T
 use crate::components::marker::Player;
 use crate::components::normal::{MoveSpeed, Target, Velocity};
 
-const PLAYER_SPEED: f32 = 100.;
+const PLAYER_SPEED: f32 = 200.;
 const PLAYER_X: f32 = 200.;
 const PLAYER_Y: f32 = 200.;
 
