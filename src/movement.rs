@@ -3,7 +3,7 @@ use bevy::math::Vec2;
 use bevy::prelude::{info, Query, Res, Time, Transform, Vec3Swizzles, With};
 
 use crate::components::marker::Player;
-use crate::components::normal::{MoveSpeed, Target, Velocity};
+use crate::components::normal::{Target, Velocity};
 
 /// A lower bound to the fps, used for
 const FPS_LOWER_BOUND: f32 = 50.;
@@ -19,16 +19,16 @@ impl Plugin for MovementPlugin {
 
 /// Checks if the player is supposed to move. If so, checks if the destination is reached. If so, resets the velocity and
 /// sets the target to it's current position. If not, moves the player in the given direction.
-pub fn player_movement(time: Res<Time>, mut query: Query<(&MoveSpeed, &mut Velocity, &mut Transform, &mut Target), With<Player>>) {
-    let (speed, mut velocity, mut transform, mut target) = query.single_mut();
-    if velocity.value != Vec2::ZERO {
+pub fn player_movement(time: Res<Time>, mut query: Query<(&mut Velocity, &mut Transform, &mut Target), With<Player>>) {
+    let (mut velocity, mut transform, mut target) = query.single_mut();
+    if velocity.direction != Vec2::ZERO {
         let distance = transform.translation.distance(target.value.extend(0.));
         info!("Distance is {:?}", distance);
-        if distance < speed.value / FPS_LOWER_BOUND {
-            velocity.value = Vec2::ZERO;
+        if distance < velocity.speed / FPS_LOWER_BOUND {
+            velocity.direction = Vec2::ZERO;
             target.value = transform.translation.xy();
         } else {
-            transform.translation += velocity.value.extend(0.) * speed.value * time.delta_seconds();
+            transform.translation += velocity.direction.extend(0.) * velocity.speed * time.delta_seconds();
         }
     }
 }

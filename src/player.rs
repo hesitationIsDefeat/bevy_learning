@@ -2,7 +2,7 @@ use bevy::app::{App, Plugin, Startup};
 use bevy::prelude::{AssetServer, Bundle, Commands, default, Res, SpriteBundle, Transform};
 
 use crate::components::marker::Player;
-use crate::components::normal::{MoveSpeed, Target, Velocity};
+use crate::components::normal::{Target, Velocity};
 
 const PLAYER_SPEED: f32 = 200.;
 const PLAYER_X: f32 = 200.;
@@ -25,8 +25,7 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
             texture: asset_server.load("sprites/tiles/grass_dirt.png"),
             ..default()
         },
-        velocity: Velocity::empty(),
-        move_speed: MoveSpeed::new(PLAYER_SPEED),
+        velocity: Velocity::no_direction(PLAYER_SPEED),
         target: Target::new(PLAYER_X, PLAYER_Y),
     });
 }
@@ -36,6 +35,5 @@ pub struct PlayerBundle {
     pub marker: Player,
     pub model: SpriteBundle,
     pub velocity: Velocity,
-    pub move_speed: MoveSpeed,
     pub target: Target,
 }

@@ -3,7 +3,7 @@ use bevy::log::info;
 use bevy::prelude::{Entity, Query, Transform, Update, With};
 
 use crate::components::marker::Player;
-use crate::components::normal::{MoveSpeed, Velocity};
+use crate::components::normal::Velocity;
 
 pub struct DebugPlugin;
 
@@ -20,8 +20,8 @@ pub fn print_positions(query: Query<(Entity, &Transform)>) {
     }
 }
 
-pub fn print_player_speed(query: Query<(&Velocity, &MoveSpeed), With<Player>>) {
-    let (velocity, move_speed) = query.single();
-    let speed = velocity.value.length() * move_speed.value;
+pub fn print_player_speed(query: Query<&Velocity, With<Player>>) {
+    let velocity = query.single();
+    let speed = velocity.direction.length() * velocity.speed;
     info!("Player speed: {speed}")
 }
